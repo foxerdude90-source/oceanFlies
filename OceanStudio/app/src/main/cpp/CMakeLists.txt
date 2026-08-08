@@ -11,11 +11,6 @@ find_library(
         log-lib
         log)
 
-find_library(
-        util-lib
-        util)
-
 target_link_libraries(
         oceanpty
-        ${log-lib}
-        ${util-lib})
+        ${log-lib})
