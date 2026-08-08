@@ -9,15 +9,16 @@
 
 ---
 
-## ⚡ Quick Direct Download & Direct Install
+## ⚡ Direct Download & Direct Install
 
-You can download and install the pre-compiled Android binaries directly from the latest GitHub Releases:
+You can download and install the pre-compiled Android binaries directly from GitHub Releases:
 
-| Artifact Type | Package Format | Direct Download Link | Description |
+| Artifact Type | Format | Direct Download Link | Description |
 | :--- | :--- | :--- | :--- |
-| **Release APK** | `.apk` | [📥 Download Release APK](https://github.com/foxerdude90-source/oceanFlies/releases/latest) | Signed production release build ready for direct side-loading on Android devices. |
-| **Debug APK** | `.apk` | [📥 Download Debug APK](https://github.com/foxerdude90-source/oceanFlies/releases/latest) | Debug build containing full logging for developers and testers. |
-| **App Bundle** | `.aab` | [📥 Download App Bundle (AAB)](https://github.com/foxerdude90-source/oceanFlies/releases/latest) | Play Store App Bundle optimized for Google Play Console deployment. |
+| **Release APK** | `.apk` | [📥 Download Production Release APK](https://github.com/foxerdude90-source/oceanFlies/releases/download/v1.0.0-latest/app-release.apk) | Signed production release build ready for direct side-loading on Android devices. |
+| **Debug APK** | `.apk` | [📥 Download Debug APK](https://github.com/foxerdude90-source/oceanFlies/releases/download/v1.0.0-latest/app-debug.apk) | Debug build containing full logging for developers and testers. |
+| **App Bundle** | `.aab` | [📥 Download App Bundle (AAB)](https://github.com/foxerdude90-source/oceanFlies/releases/download/v1.0.0-latest/app-release.aab) | Play Store App Bundle optimized for Google Play Console deployment. |
+| **Releases Page**| `Page` | [📦 View All GitHub Releases](https://github.com/foxerdude90-source/oceanFlies/releases) | Main GitHub Releases repository page. |
 
 ---
 
@@ -111,4 +112,3 @@ Generated outputs will be located in:
 
 ## 📄 License
 This project is licensed under the MIT License.
-EOF

@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
 }
 
 android {
@@ -93,3 +92,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
 }
+
+// Apply Google Services plugin at bottom to prevent Gradle configuration dependency mutation issue
+apply(plugin = "com.google.gms.google-services")

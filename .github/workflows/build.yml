@@ -3,14 +3,17 @@ name: OceanStudio CI/CD Build & Release
 on:
   push:
     branches: [ "main" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build APK & AAB Binaries
+    name: Build & Publish Release Binaries
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Codebase
@@ -22,58 +25,54 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-      - name: Grant Execute Permission for Gradle
-        run: chmod +x OceanStudio/gradlew || true
+      - name: Grant Execute Permission for Gradle Wrapper
+        run: |
+          chmod +x OceanStudio/gradlew
 
       - name: Build Debug & Release APKs and AAB Bundle
         run: |
           cd OceanStudio
-          chmod +x ../gradle/gradle-8.5/bin/gradle || true
-          gradle assembleDebug assembleRelease bundleRelease --no-daemon
+          ./gradlew assembleDebug assembleRelease bundleRelease --no-daemon
 
       - name: Upload Debug APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: oceanstudio-debug-apk
+          name: app-debug
           path: OceanStudio/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: oceanstudio-release-apk
+          name: app-release
           path: OceanStudio/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload Release AAB Bundle Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: oceanstudio-release-aab
+          name: app-release-bundle
           path: OceanStudio/app/build/outputs/bundle/release/app-release.aab
 
-      - name: Create Production Release
-        if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v1
+      - name: Create or Update GitHub Release
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0-${{ github.run_number }}
-          name: OceanStudio v1.0.0 Release (Build #${{ github.run_number }})
+          tag_name: ${{ github.ref_name == 'main' && 'v1.0.0-latest' || github.ref_name }}
+          name: OceanStudio Release (${{ github.ref_name == 'main' && 'v1.0.0 Latest' || github.ref_name }})
+          draft: false
+          prerelease: false
+          make_latest: 'true'
           body: |
-            ## 🌊 OceanStudio Production Release v1.0.0
+            ## 🌊 OceanStudio Production Release (`oceanstudio.ai`)
             
-            Native Android IDE & POSIX Terminal Environment (`oceanstudio.ai`).
+            Native Android IDE & POSIX Terminal Environment.
             
-            ### 📦 Included Release Binaries:
-            - **`app-debug.apk`**: Debug Build for testing & side-loading.
-            - **`app-release.apk`**: Signed Production Release APK.
+            ### 📦 Direct Install Download Binaries:
+            - **`app-release.apk`**: Production Signed Release APK ready for direct side-loading on Android.
+            - **`app-debug.apk`**: Debug Build for testing.
             - **`app-release.aab`**: Google Play Store App Bundle.
-            
-            ### 🔥 Features Included:
-            - Native C++ PTY Pseudo-Terminal Engine (`openpty`, `forkpty`).
-            - User-Space POSIX Sandbox (`/data/data/oceanstudio.ai/files/usr`).
-            - Firebase Android Auth (Email/Password, Native Google Sign-In, GitHub OAuth).
-            - Custom Canvas White Studio Terminal View with pinch-to-zoom & soft key action bar.
-            - Foreground Keep-Alive CPU WakeLock Service.
           files: |
             OceanStudio/app/build/outputs/apk/debug/app-debug.apk
             OceanStudio/app/build/outputs/apk/release/app-release.apk
