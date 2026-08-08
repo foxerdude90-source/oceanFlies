@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.ocean.terminal"
         minSdk = 24
-        targetSdk = 28 // Target SDK 28 bypasses W^X executable security blocks (Termux POSIX compatibility)
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
 
@@ -27,9 +27,24 @@ android {
         }
     }
 
+    signingConfigs {
+        create("releaseConfig") {
+            // Use debug signing config for release APK & AAB generation in non-interactive environment
+            storeFile = file(project.rootDir.path + "/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -51,6 +66,18 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+        density {
+            enableSplit = false
+        }
+        abi {
+            enableSplit = true
+        }
     }
 }
 

@@ -38,12 +38,11 @@ Java_com_ocean_terminal_NativePTY_createSubprocess(
     }
 
     if (pid == 0) {
-        // Child Process
+        // Child Process: Set working directory and environment variables
         if (cwd_str && strlen(cwd_str) > 0) {
             chdir(cwd_str);
         }
 
-        // Set environment variables
         if (envVars != nullptr) {
             jsize envLen = env->GetArrayLength(envVars);
             for (int i = 0; i < envLen; i++) {
