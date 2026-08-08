@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FEFCFA"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ocean.studio"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1E293B"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome back"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#1E293B"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign in to access your coding workspace and agent."
+            android:textSize="14sp"
+            android:textColor="#475569"
+            android:layout_marginBottom="32dp" />
+
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Email (you@example.com)"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:background="#FFFFFF"
+            android:textColor="#1E293B"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:background="#FFFFFF"
+            android:textColor="#1E293B"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Sign in"
+            android:textColor="#FFFFFF"
+            android:background="#1E293B"
+            android:layout_marginBottom="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/googleBtn"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="Google"
+                android:layout_marginEnd="8dp"
+                android:textColor="#1E293B"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:id="@+id/githubBtn"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="GitHub"
+                android:layout_marginStart="8dp"
+                android:textColor="#1E293B"
+                android:background="#FFFFFF" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/previewBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Preview Login (temporary)"
+            android:textColor="#475569"
+            android:background="#F1F5F9" />
+
+    </LinearLayout>
+</ScrollView>

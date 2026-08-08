@@ -1,0 +1,10 @@
+# Dependencies & Builds
+node_modules/
+dist/
+build/
+.gradle/
+.cxx/
+local.properties
+*.apk
+*.zip
+.DS_Store

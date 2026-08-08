@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FEFCFA"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Workspace Setup"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#1E293B"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Agent Mode:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#1E293B"
+        android:layout_gravity="start"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/agentModeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
+
+        <RadioButton
+            android:id="@+id/modeReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Review-driven Agent (Asks approval)"
+            android:padding="8dp" />
+
+        <RadioButton
+            android:id="@+id/modeAuto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Auto Agent (Thinks before acting)"
+            android:checked="true"
+            android:padding="8dp" />
+
+        <RadioButton
+            android:id="@+id/modeBypassed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bypassed Agent (Autonomous execution)"
+            android:padding="8dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/confirmSetupBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Launch Workspace"
+        android:textColor="#FFFFFF"
+        android:background="#0284C7" />
+</LinearLayout>
