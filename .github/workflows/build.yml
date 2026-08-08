@@ -59,8 +59,8 @@ jobs:
         if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name == 'main' && 'v1.0.0-latest' || github.ref_name }}
-          name: OceanStudio Release (${{ github.ref_name == 'main' && 'v1.0.0 Latest' || github.ref_name }})
+          tag_name: v1.0.0-latest
+          name: OceanStudio Production Release v1.0.0-latest
           draft: false
           prerelease: false
           make_latest: 'true'
