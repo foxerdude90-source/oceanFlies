@@ -1,10 +1,18 @@
-# Dependencies & Builds
+*.iml
+.gradle
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.idea
+.DS_Store
+/build
+/app/build
+OceanStudio/app/build/
+OceanStudio/gradle-8.5.zip
 node_modules/
 dist/
-build/
-.gradle/
-.cxx/
-local.properties
-*.apk
-*.zip
-.DS_Store
+downloads/node_modules/
+oceanstudio/node_modules/
+oceanstudio/dist/
