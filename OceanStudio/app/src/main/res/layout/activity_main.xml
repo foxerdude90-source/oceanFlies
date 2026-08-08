@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="#0B0F17">
 
-    <!-- Top Navigation Bar -->
+    <!-- Top IDE Navigation Header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#F8FAFC"
+        android:layout_height="52dp"
+        android:background="#151D2A"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="16dp"
@@ -18,49 +18,193 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ocean.studio IDE"
+            android:text="🌊 Ocean.studio"
             android:textStyle="bold"
-            android:textColor="#1E293B"
+            android:textColor="#F8FAFC"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/activeFileText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=" / main.py"
+            android:textColor="#94A3B8"
+            android:textSize="13sp"
+            android:fontFamily="monospace"
+            android:layout_marginStart="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/runCodeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_cyan_button"
+            android:text="▶ Run"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textAllCaps="false" />
     </LinearLayout>
 
-    <!-- Main Workspace Split Panel -->
-    <LinearLayout
+    <!-- IDE Tab Switcher Bar (Pill Selector) -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#0F172A"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:id="@+id/tabAgent"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_tab_active"
+                android:gravity="center"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="💬 AI Agent"
+                android:textColor="#06B6D4"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tabEditor"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="📝 Editor"
+                android:textColor="#94A3B8"
+                android:textSize="13sp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tabPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="👁️ Live Preview"
+                android:textColor="#94A3B8"
+                android:textSize="13sp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/tabTerminal"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="💻 OceanTerminal"
+                android:textColor="#94A3B8"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Main Dynamic Content Workspace -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-        <!-- Code Editor & Preview Tab area -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/codeEditorInput"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="top|start"
-                android:fontFamily="monospace"
-                android:textSize="13sp"
-                android:background="#FFFFFF"
-                android:padding="16dp"
-                android:visibility="gone" />
-
-            <WebView
-                android:id="@+id/previewWebView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible" />
-        </FrameLayout>
-
-        <!-- Native PTY Terminal View Section -->
+        <!-- Tab 1: AI Agent Chat View -->
         <LinearLayout
+            android:id="@+id/agentViewContainer"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#FFFFFF">
+            android:padding="12dp"
+            android:visibility="visible">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/chatContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <!-- Agent Prompt Input Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/chatInput"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_input_field"
+                    android:hint="Ask Ocean Agent to build, edit, or test code..."
+                    android:textColorHint="#64748B"
+                    android:textColor="#F8FAFC"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/sendChatBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_cyan_button"
+                    android:text="Send"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginStart="8dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tab 2: Code Editor View -->
+        <EditText
+            android:id="@+id/codeEditorInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top|start"
+            android:fontFamily="monospace"
+            android:textSize="14sp"
+            android:textColor="#F8FAFC"
+            android:background="#0B0F17"
+            android:padding="16dp"
+            android:visibility="gone" />
+
+        <!-- Tab 3: Live Preview WebView -->
+        <WebView
+            android:id="@+id/previewWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!-- Tab 4: OceanTerminal POSIX View -->
+        <LinearLayout
+            android:id="@+id/terminalContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <oceanstudio.ai.TerminalView
                 android:id="@+id/terminalView"
@@ -71,59 +215,17 @@
             <!-- Soft Keyboard Bar -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#F8FAFC">
+                android:layout_height="44dp"
+                android:background="#151D2A">
                 <LinearLayout
                     android:id="@+id/keyboardBar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
             </HorizontalScrollView>
         </LinearLayout>
-    </LinearLayout>
-
-    <!-- Ocean Agent Chat Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:orientation="vertical"
-        android:background="#F8FAFC"
-        android:padding="8dp">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
-                android:id="@+id/chatContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/chatInput"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:hint="Ask Ocean Agent..."
-                android:padding="8dp"
-                android:textSize="14sp"
-                android:background="#FFFFFF" />
-
-            <Button
-                android:id="@+id/sendChatBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:text="Send"
-                android:textColor="#FFFFFF"
-                android:background="#1E293B" />
-        </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

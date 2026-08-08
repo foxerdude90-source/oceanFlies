@@ -21,23 +21,23 @@ class TerminalView @JvmOverloads constructor(
     
     private var fontSize = 36f
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = 0xFF1E293B.toInt() // Deep Charcoal
+        color = 0xFFF8FAFC.toInt() // Pure Off-White
         typeface = Typeface.MONOSPACE
         textSize = fontSize
     }
 
     private val bgPaint = Paint().apply {
-        color = 0xFFFFFFFF.toInt() // Pure Paper White
+        color = 0xFF090D16.toInt() // Deep Terminal Dark
         style = Paint.Style.FILL
     }
 
     private val cursorPaint = Paint().apply {
-        color = 0xFF0284C7.toInt() // Crisp Ocean Blue
+        color = 0xFF06B6D4.toInt() // Electric Ocean Cyan
         style = Paint.Style.FILL
     }
 
     private val selectionPaint = Paint().apply {
-        color = 0xFFE0F2FE.toInt() // Soft Cyan Accent
+        color = 0xFF164E63.toInt() // Dark Cyan Glow Selection
         style = Paint.Style.FILL
     }
 
@@ -100,7 +100,7 @@ class TerminalView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         
-        // Background: Pure Paper White
+        // Background: Deep Terminal Dark
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), bgPaint)
 
         val fm = textPaint.fontMetrics
@@ -186,10 +186,10 @@ class TerminalView @JvmOverloads constructor(
                 }
             }
             
-            val color = if (buffer.cursorCol < 15 && buffer.getLine(buffer.cursorRow).startsWith("~/")) {
-                0xFF0284C7.toInt()
+            val color = if (buffer.cursorCol < 20 && buffer.getLine(buffer.cursorRow).contains("~")) {
+                0xFF06B6D4.toInt() // Electric Cyan prompt
             } else {
-                0xFF1E293B.toInt()
+                0xFFF8FAFC.toInt() // Off-White text
             }
             
             buffer.writeChar(c, color)

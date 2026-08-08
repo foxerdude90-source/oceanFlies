@@ -2,107 +2,193 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FEFCFA"
+    android:background="#0B0F17"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp"
-        android:gravity="center_horizontal">
+        android:gravity="center"
+        android:padding="24dp">
 
-        <TextView
+        <!-- Logo & Branding Header -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ocean.studio"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#1E293B"
-            android:layout_marginBottom="24dp" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="32dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome back"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="#1E293B"
-            android:layout_marginBottom="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌊 Ocean.studio"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textColor="#F8FAFC"
+                android:letterSpacing="0.02" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign in to access your coding workspace and agent."
-            android:textSize="14sp"
-            android:textColor="#475569"
-            android:layout_marginBottom="32dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AI-POWERED MOBILE IDE"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#06B6D4"
+                android:letterSpacing="0.15"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/emailInput"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Email (you@example.com)"
-            android:inputType="textEmailAddress"
-            android:padding="12dp"
-            android:background="#FFFFFF"
-            android:textColor="#1E293B"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/passwordInput"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Enter your password"
-            android:inputType="textPassword"
-            android:padding="12dp"
-            android:background="#FFFFFF"
-            android:textColor="#1E293B"
-            android:layout_marginBottom="24dp" />
-
-        <Button
-            android:id="@+id/signInBtn"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Sign in"
-            android:textColor="#FFFFFF"
-            android:background="#1E293B"
-            android:layout_marginBottom="16dp" />
-
+        <!-- Glassmorphic Auth Card -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:background="@drawable/bg_glass_card"
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In to your Workspace"
+                android:textColor="#F8FAFC"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Access your AI agent, native POSIX terminal, and cloud project sync."
+                android:textColor="#94A3B8"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Email Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EMAIL ADDRESS"
+                android:textColor="#94A3B8"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <EditText
+                android:id="@+id/emailInput"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="developer@oceanstudio.ai"
+                android:textColorHint="#475569"
+                android:textColor="#F8FAFC"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Password Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PASSWORD"
+                android:textColor="#94A3B8"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+
+            <EditText
+                android:id="@+id/passwordInput"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_input_field"
+                android:hint="••••••••••••"
+                android:textColorHint="#475569"
+                android:textColor="#F8FAFC"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Primary Action Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signInBtn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_cyan_button"
+                android:text="Sign In / Register"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textAllCaps="false" />
+
+            <!-- Divider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#2A364F" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  OR CONNECT WITH  "
+                    android:textColor="#64748B"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="#2A364F" />
+            </LinearLayout>
+
+            <!-- Google Auth Button -->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/googleBtn"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Google"
-                android:layout_marginEnd="8dp"
-                android:textColor="#1E293B"
-                android:background="#FFFFFF" />
+                android:background="@drawable/bg_input_field"
+                android:text="Google Account"
+                android:textColor="#F8FAFC"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="10dp" />
 
-            <Button
+            <!-- GitHub OAuth Button -->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/githubBtn"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="GitHub"
-                android:layout_marginStart="8dp"
-                android:textColor="#1E293B"
-                android:background="#FFFFFF" />
+                android:background="@drawable/bg_input_field"
+                android:text="GitHub Account"
+                android:textColor="#F8FAFC"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Preview Mode Bypass -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/previewBtn"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@android:color/transparent"
+                android:text="⚡ Preview Login (Bypass Auth)"
+                android:textColor="#06B6D4"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textAllCaps="false" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/previewBtn"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Preview Login (temporary)"
-            android:textColor="#475569"
-            android:background="#F1F5F9" />
-
     </LinearLayout>
 </ScrollView>
