@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var signInBtn: Button
@@ -18,11 +25,32 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var githubBtn: Button
     private lateinit var previewBtn: Button
 
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            account?.idToken?.let { idToken ->
+                firebaseAuthWithGoogle(idToken)
+            }
+        } catch (e: ApiException) {
+            Toast.makeText(this, "Google Sign-In failed: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
         auth = FirebaseAuth.getInstance()
+
+        // Configure Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("2746278315-vhu0ctt0e2b9kehrt6pq4lh8nsmsdvsd.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
@@ -45,7 +73,6 @@ class AuthActivity : AppCompatActivity() {
                             startActivity(Intent(this, LandingActivity::class.java))
                             finish()
                         } else {
-                            // If user doesn't exist, create user
                             auth.createUserWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(this) { createTask ->
                                     if (createTask.isSuccessful) {
@@ -62,13 +89,12 @@ class AuthActivity : AppCompatActivity() {
         }
 
         googleBtn.setOnClickListener {
-            Toast.makeText(this, "Connecting to Firebase Google Auth...", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, LandingActivity::class.java))
-            finish()
+            val signInIntent = googleSignInClient.signInIntent
+            googleSignInLauncher.launch(signInIntent)
         }
 
         githubBtn.setOnClickListener {
-            Toast.makeText(this, "Connecting to Firebase GitHub OAuth...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Connecting to GitHub Auth...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
         }
@@ -77,5 +103,19 @@ class AuthActivity : AppCompatActivity() {
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
         }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Google Sign-In successful!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LandingActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Firebase Auth failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 }
