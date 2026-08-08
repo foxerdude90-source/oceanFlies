@@ -16,7 +16,7 @@
 extern "C" {
 
 JNIEXPORT jint JNICALL
-Java_com_ocean_terminal_NativePTY_createSubprocess(
+Java_oceanstudio_ai_NativePTY_createSubprocess(
         JNIEnv *env,
         jobject thiz,
         jstring cmd,
@@ -72,7 +72,7 @@ Java_com_ocean_terminal_NativePTY_createSubprocess(
 }
 
 JNIEXPORT void JNICALL
-Java_com_ocean_terminal_NativePTY_setWindowSize(
+Java_oceanstudio_ai_NativePTY_setWindowSize(
         JNIEnv *env,
         jobject thiz,
         jint fd,
@@ -91,7 +91,7 @@ Java_com_ocean_terminal_NativePTY_setWindowSize(
 }
 
 JNIEXPORT void JNICALL
-Java_com_ocean_terminal_NativePTY_closePty(
+Java_oceanstudio_ai_NativePTY_closePty(
         JNIEnv *env,
         jobject thiz,
         jint fd) {
@@ -101,7 +101,7 @@ Java_com_ocean_terminal_NativePTY_closePty(
 }
 
 JNIEXPORT jint JNICALL
-Java_com_ocean_terminal_NativePTY_waitForProcess(
+Java_oceanstudio_ai_NativePTY_waitForProcess(
         JNIEnv *env,
         jobject thiz,
         jint pid) {

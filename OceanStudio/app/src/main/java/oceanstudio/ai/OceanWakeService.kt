@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.app.Notification
 import android.app.NotificationChannel

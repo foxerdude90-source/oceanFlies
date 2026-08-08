@@ -1,10 +1,10 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Context
 import java.io.File
 
 object TerminalEnv {
-    const val PACKAGE_NAME = "com.ocean.terminal"
+    const val PACKAGE_NAME = "oceanstudio.ai"
     
     fun getPrefix(context: Context): String {
         return "${context.filesDir.absolutePath}/usr"

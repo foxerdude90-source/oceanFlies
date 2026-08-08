@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 object NativePTY {
     init {

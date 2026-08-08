@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Context
 import android.util.Log
@@ -12,8 +12,8 @@ import kotlin.concurrent.thread
 
 class TerminalSession(
     private val context: Context,
-    private val initialCommand: String = "/data/data/com.ocean.terminal/files/usr/bin/sh",
-    private val workingDir: String = "/data/data/com.ocean.terminal/files/home",
+    private val initialCommand: String = "/data/data/oceanstudio.ai/files/usr/bin/sh",
+    private val workingDir: String = "/data/data/oceanstudio.ai/files/home",
     private val onOutput: (String) -> Unit
 ) {
     private val TAG = "TerminalSession"
@@ -66,7 +66,6 @@ class TerminalSession(
             Log.e(TAG, "Error initializing PTY streams: ${e.message}", e)
         }
 
-        // Start asynchronous background reader thread loop
         thread(name = "OceanPTY-Reader") {
             val buffer = ByteArray(4096)
             try {

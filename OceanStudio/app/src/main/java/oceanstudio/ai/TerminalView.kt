@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -117,7 +117,6 @@ class TerminalView @JvmOverloads constructor(
             for (c in 0 until lineStr.length) {
                 val charStr = lineStr[c].toString()
 
-                // Highlight selection range
                 if (isPosSelected(r, c)) {
                     val selX = c * charWidth
                     val selY = r * charHeight
@@ -188,9 +187,9 @@ class TerminalView @JvmOverloads constructor(
             }
             
             val color = if (buffer.cursorCol < 15 && buffer.getLine(buffer.cursorRow).startsWith("~/")) {
-                0xFF0284C7.toInt() // Crisp Ocean Blue Prompt
+                0xFF0284C7.toInt()
             } else {
-                0xFF1E293B.toInt() // Deep Charcoal Text
+                0xFF1E293B.toInt()
             }
             
             buffer.writeChar(c, color)

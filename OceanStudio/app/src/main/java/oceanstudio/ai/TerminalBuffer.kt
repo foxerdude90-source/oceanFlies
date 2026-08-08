@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 class TerminalBuffer(val rows: Int = 100, val cols: Int = 80) {
     private val buffer = Array(rows) { CharArray(cols) { ' ' } }

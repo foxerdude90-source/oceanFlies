@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Context
 import android.util.Log
@@ -25,7 +25,6 @@ object BootstrapInstaller {
         try {
             Log.i(TAG, "Extracting bootstrap package into ${TerminalEnv.getPrefix(context)}")
             
-            // Try extracting bootstrap archive from assets if available
             val assetManager = context.assets
             val assetFiles = assetManager.list("") ?: arrayOf()
             
@@ -53,11 +52,9 @@ object BootstrapInstaller {
                     }
                 }
             } else {
-                // Fallback: create symlinked busybox shell wrapper if standalone
                 createFallbackShell(context)
             }
 
-            // Ensure permissions on all binaries
             val binDir = File(TerminalEnv.getPrefix(context), "bin")
             binDir.listFiles()?.forEach { file ->
                 file.setExecutable(true, false)

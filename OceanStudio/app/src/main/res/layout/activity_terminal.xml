@@ -41,7 +41,7 @@
     </LinearLayout>
 
     <!-- Canvas Terminal View -->
-    <com.ocean.terminal.TerminalView
+    <oceanstudio.ai.TerminalView
         android:id="@+id/terminalView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

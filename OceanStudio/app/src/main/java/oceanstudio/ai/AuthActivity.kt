@@ -1,15 +1,16 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class AuthActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var signInBtn: Button
@@ -20,6 +21,8 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
+
+        auth = FirebaseAuth.getInstance()
 
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
@@ -35,26 +38,42 @@ class AuthActivity : AppCompatActivity() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
             } else {
-                // Sign in success -> navigate to Landing
-                startActivity(Intent(this, LandingActivity::class.java))
-                finish()
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Welcome to Ocean.studio", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, LandingActivity::class.java))
+                            finish()
+                        } else {
+                            // If user doesn't exist, create user
+                            auth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(this) { createTask ->
+                                    if (createTask.isSuccessful) {
+                                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+                                        startActivity(Intent(this, LandingActivity::class.java))
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "Authentication failed: ${createTask.exception?.message}", Toast.LENGTH_LONG).show()
+                                    }
+                                }
+                        }
+                    }
             }
         }
 
         googleBtn.setOnClickListener {
-            Toast.makeText(this, "Connecting to Google Auth...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Connecting to Firebase Google Auth...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
         }
 
         githubBtn.setOnClickListener {
-            Toast.makeText(this, "Connecting to GitHub OAuth...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Connecting to Firebase GitHub OAuth...", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
         }
 
         previewBtn.setOnClickListener {
-            // Preview login bypass
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
         }

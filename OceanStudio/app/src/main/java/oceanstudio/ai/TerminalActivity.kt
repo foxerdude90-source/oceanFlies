@@ -1,4 +1,4 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Context
 import android.content.Intent
@@ -25,13 +25,10 @@ class TerminalActivity : AppCompatActivity() {
         terminalView = findViewById(R.id.terminalView)
         keyboardBar = findViewById(R.id.keyboardBar)
 
-        // Install Bootstrap utilities if missing
         BootstrapInstaller.installIfNeeded(this)
 
-        // Setup Soft Touch Keyboard Action Bar
         setupKeyboardBar()
 
-        // Setup Terminal Session I/O Wiring
         terminalSession = TerminalSession(this) { output ->
             runOnUiThread {
                 terminalView.appendText(output)
@@ -39,10 +36,8 @@ class TerminalActivity : AppCompatActivity() {
         }
         terminalSession?.startSession()
 
-        // Start Ongoing Wake Service
         OceanWakeService.startService(this)
 
-        // Copy button
         findViewById<Button>(R.id.copyBtn)?.setOnClickListener {
             val copied = terminalView.copySelectedText()
             if (copied.isNotEmpty()) {
@@ -52,7 +47,6 @@ class TerminalActivity : AppCompatActivity() {
             }
         }
 
-        // Battery optimization toggle
         findViewById<Button>(R.id.batteryOptBtn)?.setOnClickListener {
             requestIgnoreBatteryOptimization()
         }

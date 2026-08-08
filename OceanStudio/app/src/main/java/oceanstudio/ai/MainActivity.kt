@@ -1,15 +1,13 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.io.InputStream
 import java.io.OutputStream
@@ -39,10 +37,8 @@ class MainActivity : AppCompatActivity() {
         chatContainer = findViewById(R.id.chatContainer)
         keyboardBar = findViewById(R.id.keyboardBar)
 
-        // Initialize Android POSIX Bootstrap Sandbox
         BootstrapInstaller.installIfNeeded(this)
 
-        // Setup WebView for Preview
         webView.settings.javaScriptEnabled = true
         webView.loadDataWithBaseURL(
             "file:///android_asset/",
@@ -52,13 +48,9 @@ class MainActivity : AppCompatActivity() {
             null
         )
 
-        // Setup Soft Keyboard Action Keys
         setupKeyboardBar()
-
-        // Spawn Native POSIX Terminal Subprocess via C++ PTY
         initNativeTerminalSession()
 
-        // Send Chat Button
         findViewById<Button>(R.id.sendChatBtn)?.setOnClickListener {
             val text = chatInput.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -117,7 +109,6 @@ class MainActivity : AppCompatActivity() {
             )
 
             if (masterFd >= 0) {
-                // Set window size
                 NativePTY.setWindowSize(masterFd, rows = 40, cols = 80, widthPx = 1080, heightPx = 1920)
 
                 val fileDescriptor = java.io.FileDescriptor()
@@ -128,7 +119,6 @@ class MainActivity : AppCompatActivity() {
                 ptyInputStream = java.io.FileInputStream(fileDescriptor)
                 ptyOutputStream = java.io.FileOutputStream(fileDescriptor)
 
-                // Read PTY output thread loop
                 val bufferBytes = ByteArray(4096)
                 try {
                     while (true) {

@@ -1,9 +1,8 @@
-package com.ocean.terminal
+package oceanstudio.ai
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 
 class SetupActivity : AppCompatActivity() {
